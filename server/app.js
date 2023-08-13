@@ -1,10 +1,16 @@
 const mongoose=require("mongoose");
+const dotenv=require("dotenv");
 
 const express = require('express'); 
 const app = express(); 
 
+
+dotenv.config({path:"./.env"});
+
+
+
   //DB connection
-  const db="mongodb+srv://hassan:hassan@cluster0.8cifmpw.mongodb.net/Cluster0?retryWrites=true&w=majority"
+  const db=process.env.DATABASE;
 mongoose.connect(db,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
     console.log("DB is connected");
 }).catch((err)=>{
