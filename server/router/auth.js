@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const bcrypt=require('bcryptjs');
-
+const jwt=require('jsonwebtoken');
 const User=require("../model/userSchema");
 router.get('/',(req,res)=>{
     res.send("hello hassan world");
@@ -48,6 +48,16 @@ router.post('/signin',async(req,res)=>{
     }
     else{
         const isMatch=await bcrypt.compare(password,userEmail.password);
+
+        let token=await userEmail.generateAuthToken();
+        console.log(token);
+        res.cookie("jwtoken",token,{
+            expires:new Date(Date.now()+86400000),
+          
+        })
+
+
+
         if(!isMatch)
         {
             res.status(422).json({error:"wrong credentials"});
@@ -60,14 +70,6 @@ router.post('/signin',async(req,res)=>{
    
 
 
-    // if(userEmail)
-    // {
-    //     res.status(200).json({message:"user logged in successfully"});
-    // }
-    // else{
-    //     res.status(422).json({error:"wrong credentials"});
-    // }
-    // console.log(userEmail);
 })
 
 module.exports=router;

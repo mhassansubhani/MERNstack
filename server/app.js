@@ -9,7 +9,10 @@ app.use(express.json()); //middleware used to parse data
 
 app.use(require("./router/auth")); //: This is how you tell Express to use the middleware for every room (route) in your application.
 
-
+app.get('/contact',(req,res)=>{
+    res.cookie("test",'hassan');
+    res.send("hello this is contact pog") 
+}) 
 
 
 const PORT=process.env.PORT; //takiing value from .env file of port
