@@ -69,4 +69,4 @@ return token;
 
 const User=mongoose.model("USER",userSchema);
 
-module.exports=User;s
+module.exports=User
